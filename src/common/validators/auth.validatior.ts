@@ -34,7 +34,6 @@ export const registerUserValidationSchema = z
     email: emailSchema,
     password: passwordSchema,
     confirmPassword: passwordSchema,
-    userAgent: z.string().optional(),
   })
   .refine((val) => val.password === val.confirmPassword, {
     message: "Passwords do not match",
@@ -44,4 +43,5 @@ export const registerUserValidationSchema = z
 export const loginUserValidationSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
+  userAgent: z.string().optional(),
 });

@@ -9,7 +9,7 @@ function routes(app: Express) {
     res.sendStatus(200);
   });
 
-  app.use(`${BASE_PATH}`, authRoutes);
+  app.use(`${BASE_PATH}/auth`, authRoutes);
 }
 
 export default routes;

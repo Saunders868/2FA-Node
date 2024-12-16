@@ -3,7 +3,6 @@ declare interface UserDTO {
   email: string;
   password: string;
   confirmPassword: string;
-  userAgent?: string;
 }
 
 declare interface LoginDTO {

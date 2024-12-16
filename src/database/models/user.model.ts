@@ -14,7 +14,7 @@ export interface UserDocument extends Document {
   isEmailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
-  userPreference: UserPreference;
+  userPreferences: UserPreference;
   comparePasswords: (value: string) => Promise<boolean>;
 }
 
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    userPreference: { type: userPreferencesSchema, default: {} },
+    userPreferences: { type: userPreferencesSchema, default: {} },
   },
   {
     timestamps: true,
@@ -50,6 +50,7 @@ userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await hashValue(this.password);
   }
+  next();
 });
 
 userSchema.methods.comparePasswords = async function (value: string) {
@@ -59,7 +60,7 @@ userSchema.methods.comparePasswords = async function (value: string) {
 userSchema.set("toJSON", {
   transform: function (doc, ret) {
     delete ret.password;
-    delete ret.userPreference.twoFactorSecret;
+    delete ret.userPreferences.twoFactorSecret;
     return ret;
   },
 });

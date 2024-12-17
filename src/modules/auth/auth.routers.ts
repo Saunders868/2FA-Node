@@ -30,7 +30,7 @@ authRoutes.post("/register", authController.register);
  *  post:
  *     tags:
  *     - User
- *     summary: Register a user
+ *     summary: Login a user
  *     requestBody:
  *      required: true
  *      content:
@@ -51,13 +51,7 @@ authRoutes.post("/login", authController.login);
  *  get:
  *     tags:
  *     - User
- *     summary: Register a user
- *     requestBody:
- *      required: true
- *      content:
- *        application/json:
- *           schema:
- *              $ref: '#/components/schemas/RegisterUserInput'
+ *     summary: Refresh a user's session
  *     responses:
  *      200:
  *        description: Success

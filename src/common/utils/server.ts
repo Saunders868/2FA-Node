@@ -4,6 +4,7 @@ import cors from "cors";
 import { config } from "../../config/app.config";
 import routes from "../../routes";
 import { errorHandler } from "../../middleware/errorHandler";
+import { swaggerDocs } from "./swagger";
 
 function createServer(): Express {
   const app = express();
@@ -18,6 +19,7 @@ function createServer(): Express {
 
   app.use(cookieParser());
   app.disable("x-powered-by");
+  swaggerDocs(app);
   routes(app);
   app.use(errorHandler);
 

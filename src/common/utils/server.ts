@@ -18,8 +18,8 @@ function createServer(): Express {
 
   app.use(cookieParser());
   app.disable("x-powered-by");
-  app.use(errorHandler);
   routes(app);
+  app.use(errorHandler);
 
   return app;
 }

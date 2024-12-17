@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     userPreferences: { type: userPreferencesSchema, default: {} },
+    isEmailVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,

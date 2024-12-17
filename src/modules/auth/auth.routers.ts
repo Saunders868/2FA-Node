@@ -47,6 +47,27 @@ authRoutes.post("/login", authController.login);
 
 /**
  * @openapi
+ * '/api/v1/auth/verify/email':
+ *  post:
+ *     tags:
+ *     - User
+ *     summary: Verify a user's email
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/VerifyEmailInput'
+ *     responses:
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad request
+ */
+authRoutes.post("/verify/email", authController.verifyEmail);
+
+/**
+ * @openapi
  * '/api/v1/auth/refresh':
  *  get:
  *     tags:

@@ -50,6 +50,6 @@ export const errorHandler: ErrorRequestHandler = (
 
   return res.status(HTTPSTATUS.INTERNAL_SERVER_ERROR).json({
     message: "Internal Server Error",
-    error: error?.message || "Unknow error occured",
+    error: error?.message || "Unknown error occured",
   });
 };

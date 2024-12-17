@@ -40,6 +40,23 @@ export const registerUserValidationSchema = z
     path: ["confirmPassword"],
   });
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    LoginUserInput:
+ *      type: object
+ *      required:
+ *        - email
+ *        - password
+ *      properties:
+ *        email:
+ *          type: string
+ *          default: jane.doe@example.com
+ *        password:
+ *          type: string
+ *          default: Password1!
+ */
 export const loginUserValidationSchema = z.object({
   email: emailSchema,
   password: passwordSchema,

@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 import { add } from "date-fns";
 
+export const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
+
 export function generateUniqueCode() {
   return uuidv4().replace(/-/g, "").substring(0, 25);
 }

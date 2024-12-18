@@ -24,6 +24,8 @@ import {
   signJwtToken,
   verifyJwtToken,
 } from "../../common/utils/jwt";
+import { sendEmail } from "../../mailers/mailer";
+import { verifyEmailTemplate } from "../../mailers/templates/template";
 
 export class AuthService {
   public async userExists(email: string): Promise<{ _id: unknown } | null> {
@@ -95,13 +97,17 @@ export class AuthService {
 
     const newUser = await this.createUser({ name, email, password });
     const userId = newUser._id;
-    const verificationCode = await this.createVerificationCode({
+    const verification = await this.createVerificationCode({
       userId,
       type: VerificationEnum.EMAIL_VERIFICATION,
       expiresAt: fortyFiveMinutesFromNow(),
     });
 
-    // send verification code email link
+    const verificationUrl = `${config.APP_ORIGIN}/confirm-account?code=${verification.code}`;
+    await sendEmail({
+      to: newUser.email,
+      ...verifyEmailTemplate(verificationUrl),
+    });
 
     return {
       user: newUser,
@@ -205,7 +211,7 @@ export class AuthService {
   }
 
   public async verifyEmail(code: string): Promise<{ user: UserDocument }> {
-    const validCode = await VerificationCodeModel.findOne({
+    const validCode = await verificationModel.findOne({
       code: code,
       type: VerificationEnum.EMAIL_VERIFICATION,
       expiresAt: { $gt: new Date() },

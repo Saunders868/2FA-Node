@@ -68,6 +68,33 @@ authRoutes.post("/verify/email", authController.verifyEmail);
 
 /**
  * @openapi
+ * '/api/v1/auth/password/forgot':
+ *  post:
+ *     tags:
+ *     - User
+ *     summary: User forgets their password
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              type: object
+ *              required:
+ *                  - email
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      default: jane.doe@example.com
+ *     responses:
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad request
+ */
+authRoutes.post("/password/forgot", authController.forgotPassword);
+
+/**
+ * @openapi
  * '/api/v1/auth/refresh':
  *  get:
  *     tags:

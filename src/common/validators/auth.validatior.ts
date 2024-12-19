@@ -84,7 +84,7 @@ export const verificationEmailSchema = z.object({
  * @openapi
  * components:
  *  schemas:
- *    ReserPasswordInput:
+ *    ResetPasswordInput:
  *      type: object
  *      required:
  *        - code

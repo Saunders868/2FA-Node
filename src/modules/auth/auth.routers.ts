@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { authController } from "./auth.module";
+import { authenticateJWT } from "../../common/strategy/jwt.strategy";
 
 const authRoutes = Router();
 
@@ -113,6 +114,21 @@ authRoutes.post("/password/forgot", authController.forgotPassword);
  *        description: Bad request
  */
 authRoutes.post("/password/reset", authController.resetPassword);
+
+/**
+ * @openapi
+ * '/api/v1/auth/logout':
+ *  post:
+ *     tags:
+ *     - User
+ *     summary: Logout a user
+ *     responses:
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad request
+ */
+authRoutes.post("/logout", authenticateJWT, authController.logout);
 
 /**
  * @openapi

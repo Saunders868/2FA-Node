@@ -5,6 +5,7 @@ import { config } from "../../config/app.config";
 import routes from "../../routes";
 import { errorHandler } from "../../middleware/errorHandler";
 import { swaggerDocs } from "./swagger";
+import passport from "../../middleware/passport";
 
 function createServer(): Express {
   const app = express();
@@ -18,6 +19,7 @@ function createServer(): Express {
   );
 
   app.use(cookieParser());
+  app.use(passport.initialize());
   app.disable("x-powered-by");
   swaggerDocs(app);
   routes(app);

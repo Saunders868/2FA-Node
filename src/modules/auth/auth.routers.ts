@@ -95,6 +95,27 @@ authRoutes.post("/password/forgot", authController.forgotPassword);
 
 /**
  * @openapi
+ * '/api/v1/auth/password/reset':
+ *  post:
+ *     tags:
+ *     - User
+ *     summary: Reset a user's password
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/ResetPasswordInput'
+ *     responses:
+ *      200:
+ *        description: Success
+ *      400:
+ *        description: Bad request
+ */
+authRoutes.post("/password/reset", authController.resetPassword);
+
+/**
+ * @openapi
  * '/api/v1/auth/refresh':
  *  get:
  *     tags:

@@ -35,6 +35,7 @@ import {
   verifyEmailTemplate,
 } from "../../mailers/templates/template";
 import { HTTPSTATUS } from "../../config/http.config";
+import { hashValue } from "../../common/utils/bcrypt";
 
 export class AuthService {
   public async userExists(email: string): Promise<{ _id: unknown } | null> {
@@ -299,6 +300,38 @@ export class AuthService {
     return {
       url: resetUrl,
       emailId: data.id,
+    };
+  }
+
+  public async resetPassword({
+    password,
+    code,
+  }: ResetPasswordDTO): Promise<{ user: UserDocument }> {
+    const validCode = await VerificationCodeModel.findOne({
+      code: code,
+      type: VerificationEnum.PASSWORD_RESET,
+      expiresAt: { $gt: new Date() },
+    });
+
+    if (!validCode)
+      throw new NotFoundException("Invalid or expired verification code");
+
+    const hasedPassword = await hashValue(password);
+
+    const updatedUser = await UserModel.findByIdAndUpdate(validCode.userId, {
+      password: hasedPassword,
+    });
+
+    if (!updatedUser) throw new BadRequestException("Failed to reset password");
+
+    await validCode.deleteOne();
+
+    await SessionModel.deleteMany({
+      userId: updatedUser._id,
+    });
+
+    return {
+      user: updatedUser,
     };
   }
 }

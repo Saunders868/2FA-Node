@@ -10,3 +10,8 @@ declare interface LoginDTO {
   password: string;
   userAgent?: string;
 }
+
+declare interface ResetPasswordDTO {
+  password: string;
+  code: string;
+}

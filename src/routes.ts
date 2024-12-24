@@ -3,7 +3,7 @@ import authRoutes from "./modules/auth/auth.routers";
 import { config } from "./config/app.config";
 import sessionRoutes from "./modules/session/session.routers";
 import { authenticateJWT } from "./common/strategy/jwt.strategy";
-import mfaRoutes from "./modules/mfa/mfa.routes";
+import mfaRoutes from "./modules/mfa/mfa.routers";
 
 const BASE_PATH = config.BASE_PATH;
 
